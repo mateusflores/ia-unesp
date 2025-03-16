@@ -20,8 +20,13 @@ place diamondSearch(enviroment E, int startRow, int startCol) {
         }
     }
 
-    place invalidPlace = {-1, -1, false};
-    return invalidPlace;
+    if(startRow == 0 && startCol == 0){
+        return E.grid[0][0];
+    }else{
+        place invalidPlace = {-1, -1, false};
+        return invalidPlace;
+    }
+    
 }
 
 
