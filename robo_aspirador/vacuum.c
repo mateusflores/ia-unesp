@@ -166,6 +166,9 @@ void clean(cleaner* C){
 
 //Imprime o ambiente e o agente na tela
 void printSimulation(cleaner C, enviroment E){
+    // Limpa a tela
+    system("clear");
+
     //Posição do carregador é sempre a mesma
     //Itera sobre posições do grid
     for (int i=0; i<E.h; i++){
@@ -188,6 +191,7 @@ void printSimulation(cleaner C, enviroment E){
         }
         printf("\n");
     }
+    printf("Bateria %d/%d", C.battery, MAX_BATTERY);
     printf("\n");
     sleep(1);
 }
