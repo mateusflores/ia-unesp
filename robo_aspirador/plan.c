@@ -29,7 +29,15 @@ place diamondSearch(enviroment E, int startRow, int startCol) {
     
 }
 
-
+bool hasEnoughBattery(cleaner* C, place P) {
+    int cleanerPosition = C->whereCleaner->col + C->whereCleaner->row;
+    int relativePlacePosition = abs(C->whereCleaner->col - P.col) + abs(C->whereCleaner->row - P.row);
+    int cleanAction = P.dirt ? 1 : 0;
+    if (C->battery >= cleanerPosition + relativePlacePosition + cleanAction) {
+        return true;
+    }
+    return false;
+}
 
 void cleanEnviroment(cleaner* C, enviroment E){
 /*
