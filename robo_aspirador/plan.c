@@ -50,7 +50,7 @@ void cleanEnviroment(cleaner* C, enviroment E){
             break;
         }
 
-        if (C->battery < E.h + E.w) {
+        if (!hasEnoughBattery(C, dirtPlace)) {
             //Retorna para carregar bateria
             charge(C,E);
             
