@@ -98,6 +98,7 @@ bool move(cleaner* C, enviroment E, place* target){
         C->whereCleaner = target;
         C->battery--;
         C->numActions++;
+        printSimulation(*C,E);
         return true;
     }
     return false;
