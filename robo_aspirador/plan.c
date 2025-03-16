@@ -28,8 +28,7 @@ place diamondSearch(enviroment E, int startRow, int startCol) {
 
 void cleanEnviroment(cleaner* C, enviroment E){
 /*
-    Plano de limpeza para um agente que conhece o ambiente, mas não sabe onde 
-    está a sujeira a ser limpada.
+    Plano de limpeza para um agente que conhece o ambiente e localização de sujeiras.
 */
     while (true) {
         place dirtPlace = diamondSearch(E, C->whereCleaner->row, C->whereCleaner->col);

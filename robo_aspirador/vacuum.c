@@ -110,7 +110,7 @@ bool goTarget(cleaner* C, enviroment E, place* target){
         int dist_i = abs(C->whereCleaner->row-target->row);
         int dist_j = abs(C->whereCleaner->col-target->col);
         //Checa se bateria permite deslocamento
-        if (dist_i+dist_j<C->battery){
+        if (dist_i+dist_j < C->battery){
             //Movimento pela altura
             while (C->whereCleaner->row!=target->row){
                 //Checa se deve mover para cima ou para baixo
@@ -138,7 +138,7 @@ bool goTarget(cleaner* C, enviroment E, place* target){
         }
         else{
             printf("Bateria insuficiente! \n");
-            return false;
+            exit(1);
         }
     }
     return true;
@@ -191,7 +191,8 @@ void printSimulation(cleaner C, enviroment E){
         }
         printf("\n");
     }
-    printf("Bateria %d/%d", C.battery, MAX_BATTERY);
+    printf("Bateria %d/%d\n", C.battery, MAX_BATTERY);
+    printf("Posicao (x: %d, y: %d)\n", C.whereCleaner->col, C.whereCleaner->row);
     printf("\n");
     sleep(1);
 }
