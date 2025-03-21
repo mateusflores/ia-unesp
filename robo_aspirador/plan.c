@@ -29,11 +29,17 @@ place diamondSearch(enviroment E, int startRow, int startCol) {
     
 }
 
+int getDistanceBetween(place P1, place P2) {
+    int yDistance = abs(P1.col - P2.col);
+    int xDistance = abs(P1.row - P2.row);
+    return xDistance + yDistance;
+}
+
 bool hasEnoughBattery(cleaner* C, place P) {
-    int cleanerPosition = C->whereCleaner->col + C->whereCleaner->row;
-    int relativePlacePosition = abs(C->whereCleaner->col - P.col) + abs(C->whereCleaner->row - P.row);
     int cleanAction = P.dirt ? 1 : 0;
-    if (C->battery >= cleanerPosition + relativePlacePosition + cleanAction) {
+    int distCleanerToPlace = getDistanceBetween(*C->whereCleaner, P);
+    int distPlaceToCharger = getDistanceBetween(P, *C->whereCharger);
+    if (C->battery - distCleanerToPlace - distPlaceToCharger - cleanAction  >= 0) {
         return true;
     }
     return false;
