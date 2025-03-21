@@ -45,14 +45,24 @@ bool hasEnoughBattery(cleaner* C, place P) {
     return false;
 }
 
+bool checkIfDirtExists(int dirtCol, int dirtRow) {
+    if (dirtCol == -1 && dirtRow == -1) {
+        printf("Nenhuma sujeira encontrada no ambiente\n");        
+        return false;
+    }
+    return true;
+}
+
 void cleanEnviroment(cleaner* C, enviroment E){
 /*
     Plano de limpeza para um agente que conhece o ambiente e localização de sujeiras.
 */
     while (true) {
         place dirtPlace = diamondSearch(E, C->whereCleaner->row, C->whereCleaner->col);
-        if (dirtPlace.col == -1 && dirtPlace.row == -1) {
-            printf("Nenhuma sujeira encontrada no ambiente\n");
+
+        if (!checkIfDirtExists(dirtPlace.col, dirtPlace.row)) {
+            printf("Retornando ao carregador...");
+            charge(C, E);
             break;
         }
 
@@ -61,6 +71,12 @@ void cleanEnviroment(cleaner* C, enviroment E){
             charge(C,E);
             
             place newDirtPlace = diamondSearch(E, C->whereCleaner->row, C->whereCleaner->col);
+
+            if (!checkIfDirtExists(dirtPlace.col, dirtPlace.row)) {
+                printf("Retornando ao carregador...");
+                charge(C, E);
+                break;
+            }
 
             int p = newDirtPlace.row;
             int t = newDirtPlace.col;
