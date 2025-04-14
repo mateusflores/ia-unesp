@@ -1,0 +1,1 @@
+void exportFile(const char *filename, int *movements, double *times);

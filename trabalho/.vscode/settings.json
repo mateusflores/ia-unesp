@@ -1,0 +1,11 @@
+{
+    "files.associations": {
+        "stdio.h": "c",
+        "simulatedannealing.h": "c",
+        "stdlib.h": "c",
+        "game.h": "c",
+        "manhattam.h": "c",
+        "piecesoutofplace.h": "c",
+        "time.h": "c"
+    }
+}
