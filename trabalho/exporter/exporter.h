@@ -1,1 +1,1 @@
-void exportFile(const char *filename, int *movements, double *times);
+void exportFile(const char *filename, int *movements, double *times, char *victories);

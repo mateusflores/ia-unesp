@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void exportFile(char *filename, int *movements, double *times) {
+void exportFile(char *filename, int *movements, double *times, char *victories) {
     FILE *file = fopen(filename, "w");
     if (file == NULL) {
         printf("Error opening file\n");
@@ -21,6 +21,15 @@ void exportFile(char *filename, int *movements, double *times) {
     // Write the double array to the second line
     for (int i = 0; i < 10; i++) {
         fprintf(file, "%.5f", times[i]);
+        if (i < 9) {
+            fprintf(file, "|");
+        }
+    }
+    fprintf(file, "\n");
+
+    // Write the char array to the second line
+    for (int i = 0; i < 10; i++) {
+        fprintf(file, "%c", victories[i]);
         if (i < 9) {
             fprintf(file, "|");
         }

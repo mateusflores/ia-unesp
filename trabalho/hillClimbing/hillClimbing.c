@@ -8,7 +8,7 @@
 
 int tmax = 10000;
 
-int hillClimbing(game* initial, int (*dist)(game*)){
+bool hillClimbing(game* initial, int (*dist)(game*), int* movesUsed) {
     game* current = newGame();
     copyGame(initial, current);
     int currentDist = dist(current);
@@ -40,7 +40,7 @@ int hillClimbing(game* initial, int (*dist)(game*)){
                         copyGame(newSolution, bestSolution);
                         bestSolutionDist = newSolutionDist;
                     }
-                    movements++;
+                    (*movesUsed)++;
                 }
             }
         }
@@ -51,28 +51,30 @@ int hillClimbing(game* initial, int (*dist)(game*)){
             return true;
         }
     }
-
-    return movements;
+    return false;
 }
 
 void computeHillClimbing(game** games, int (*dist)(game*), char* filename) {
     int moves[10];
     double times[10];
+    char victories[10];
     
     for (int i = 0; i < 10; i++) {
+        int movesUsed = 0;
         game* initial = games[i];
         
         clock_t begin = clock();
-        int movesUsed = hillClimbing(initial, dist);
+        bool solved = hillClimbing(initial, dist, &movesUsed);
         clock_t end = clock();
 
         double timeSpent = (double)(end - begin) / CLOCKS_PER_SEC;
 
         moves[i] = movesUsed;
         times[i] = timeSpent;
+        victories[i] = solved ? 'V' : 'D';
 
         delGame(initial);
     }
 
-    exportFile(filename, moves, times);
+    exportFile(filename, moves, times, victories);
 }

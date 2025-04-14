@@ -98,6 +98,7 @@ bool simulatedAnnealing (game* initial, double coolingRate, int (*dist)(game*), 
 void computeSimulatedAnnealing(game** games, double* betas, int betasQuant, int (*dist)(game*), char* filename) {
     int moves[10];
     double times[10];
+    char victories[10];
     
     for (int i = 0; i < 10; i++) {
         game* initial = games[i];
@@ -112,6 +113,7 @@ void computeSimulatedAnnealing(game** games, double* betas, int betasQuant, int 
         int bestPartialCost = 1000000;
 
         double bestTime = 0.0;
+        bool solved = false;
 
         for (int i = 0; i < betasQuant; i++) {
             int currentMoves = 0;
@@ -122,7 +124,7 @@ void computeSimulatedAnnealing(game** games, double* betas, int betasQuant, int 
                 temp->grid[i] = malloc(3 * sizeof(int));
 
             clock_t begin = clock();
-            bool solved = simulatedAnnealing(initial, betas[i], dist, &temp, &currentMoves);
+            solved = simulatedAnnealing(initial, betas[i], dist, &temp, &currentMoves);
             clock_t end = clock();
             double timeSpent = (double)(end - begin) / CLOCKS_PER_SEC;
 
@@ -148,10 +150,11 @@ void computeSimulatedAnnealing(game** games, double* betas, int betasQuant, int 
         }
         moves[i] = bestMovesUsed;
         times[i] = bestTime;
+        victories[i] = solved ? 'V' : 'D';
 
         delGame(initial);
         delGame(bestAttempt);
     }
 
-    exportFile(filename, moves, times);
+    exportFile(filename, moves, times, victories);
 }
