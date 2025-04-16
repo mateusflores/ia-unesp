@@ -21,6 +21,14 @@ void writeArray(char* fname, double* out, int n){
     fclose(fp);
 }
 
+/*
+    Grupo:
+        Guilherme Caetano
+        Leonardo Henrique Cardoso
+        Mateus Flores
+        Vitor Luz
+*/
+
 int main(){
 
     //Ótimo individual é priorizado no cálculo da velocidade
