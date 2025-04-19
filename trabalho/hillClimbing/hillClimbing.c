@@ -1,47 +1,42 @@
-#include "hillClimbing.h"
-#include <math.h>
+#include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
 #include <time.h>
+#include <stdbool.h>
+#include "../simulatedAnnealing/simulatedAnnealing.h"
 #include "../game/game.h"
 #include "../exporter/exporter.h"
-#include "../simulatedAnnealing/simulatedAnnealing.h"
 
-int tmax = 10000;
+// Parameters
+int maxIter = 1000000;
 
-bool hillClimbing(game* initial, int (*dist)(game*), int* movesUsed) {
+bool hillClimbing (game* initial, int (*dist)(game*), int* movesUsed) {
     game* current = newGame();
+    game* newSolution = newGame();
     copyGame(initial, current);
-    int currentDist = dist(current);
-
     game* bestSolution = newGame();
     copyGame(initial, bestSolution);
-    int bestSolutionDist = currentDist;
 
-    game* newSolution = newGame();
-    int newSolutionDist = 1000000;
-    int movements = 0;
+    int bestEnergy = dist(bestSolution);
 
-    for (int t = 0; t < tmax; t++) {
+    (*movesUsed) = 0;
+
+    for (int i = 0; i < maxIter; i++) {
         copyGame(current, newSolution);
 
         int move = getRandomMove(newSolution);
-
         if (move != -1 && moveGame(newSolution, move)) {
-            currentDist = dist(current);
-            newSolutionDist = dist(newSolution);
+            int currentEnergy = dist(current);
+            int newSolutionEnergy = dist(newSolution);
+            int energyDiff = newSolutionEnergy - currentEnergy;
 
-            if (newSolutionDist < currentDist) {
-                
-                int distDiff = newSolutionDist - currentDist;
-
-                if (acceptSolution(currentDist, distDiff)) {
-                    copyGame(newSolution, current);
-                    if (newSolutionDist < bestSolutionDist) {
-                        copyGame(newSolution, bestSolution);
-                        bestSolutionDist = newSolutionDist;
-                    }
-                    (*movesUsed)++;
+            if (acceptSolution(1000, energyDiff)) {
+                copyGame(newSolution, current);
+                if (newSolutionEnergy < bestEnergy) {
+                    copyGame(newSolution, bestSolution);
+                    bestEnergy = newSolutionEnergy;
                 }
+                (*movesUsed)++;
             }
         }
 
@@ -51,6 +46,9 @@ bool hillClimbing(game* initial, int (*dist)(game*), int* movesUsed) {
             return true;
         }
     }
+
+    delGame(current);
+    delGame(newSolution);
     return false;
 }
 

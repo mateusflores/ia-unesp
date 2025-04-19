@@ -10,7 +10,7 @@
 // Parameters
 double initialTemp = 1000.0;
 double finalTemp = 1e-6;
-int maxIterations = 10000;
+int maxIterations = 100000;
 
 // Escolhe um número vizinho do zero aleatoriamente
 int getRandomMove(game* G) {

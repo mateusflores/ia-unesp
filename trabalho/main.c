@@ -4,6 +4,7 @@
 #include "game/game.h"
 #include "simulatedAnnealing/simulatedAnnealing.h"
 #include "hillClimbing/hillClimbing.h"
+#include "localBeamSearch/localBeamSearch.h"
 #include "distances/manhattam.h"
 #include "distances/piecesOutOfPlace.h"
 #include "game/generateGames.h"
@@ -39,9 +40,9 @@ int main(int argc, char *argv[]) {
     } else if (strcmp(algorithmType, "lbs") == 0) {
         printf("Algoritmo: Local Beam Search\n");
         if (strcmp(distanceAlgorithm, "mht") == 0) {
-            printf("Distância: Manhattan\n");
+            computeLocalBeamSearch(generateGames(), manhattan, "lbs_mht.dat");
         } else if (strcmp(distanceAlgorithm, "pop") == 0) {
-            printf("Distância: Pieces outside of place\n");
+            computeLocalBeamSearch(generateGames(), piecesOutOfPlace, "lbs_pop.dat");
         } else {
             fprintf(stderr, "Error: Invalid distance algorithm. Use 'mht' or 'pop'.\n");
             return 1;
@@ -52,16 +53,6 @@ int main(int argc, char *argv[]) {
             computeHillClimbing(generateGames(), manhattan, "hc_mht.dat");
         } else if (strcmp(distanceAlgorithm, "pop") == 0) {
             computeHillClimbing(generateGames(), piecesOutOfPlace, "hc_pop.dat");
-        } else {
-            fprintf(stderr, "Error: Invalid distance algorithm. Use 'mht' or 'pop'.\n");
-            return 1;
-        }
-    } else if (strcmp(algorithmType, "as") == 0) {
-        printf("Algoritmo: A-star\n");
-        if (strcmp(distanceAlgorithm, "mht") == 0) {
-            printf("Distância: Manhattan\n");
-        } else if (strcmp(distanceAlgorithm, "pop") == 0) {
-            printf("Distância: Pieces outside of place\n");
         } else {
             fprintf(stderr, "Error: Invalid distance algorithm. Use 'mht' or 'pop'.\n");
             return 1;
