@@ -5,6 +5,7 @@
 #include "simulatedAnnealing/simulatedAnnealing.h"
 #include "hillClimbing/hillClimbing.h"
 #include "localBeamSearch/localBeamSearch.h"
+#include "breadthFirstSearch/bfstree.h"
 #include "distances/manhattam.h"
 #include "distances/piecesOutOfPlace.h"
 #include "game/generateGames.h"
@@ -59,14 +60,7 @@ int main(int argc, char *argv[]) {
         }
     } else if (strcmp(algorithmType, "bfs") == 0) {
         printf("Algoritmo: Breadth-first search\n");
-        if (strcmp(distanceAlgorithm, "mht") == 0) {
-            printf("Distância: Manhattan\n");
-        } else if (strcmp(distanceAlgorithm, "pop") == 0) {
-            printf("Distância: Pieces outside of place\n");
-        } else {
-            fprintf(stderr, "Error: Invalid distance algorithm. Use 'mht' or 'pop'.\n");
-            return 1;
-        }
+        computeBFS(generateGames(), "bfs.dat");
     } else {
         fprintf(stderr, "Error: Invalid algorithm type. Use 'sa', 'lbs', 'hc', 'as', or 'bfs'.\n");
         return 1;
