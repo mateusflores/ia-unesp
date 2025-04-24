@@ -1,7 +1,6 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 from scipy.stats import pearsonr, ttest_ind
-import numpy as np
 
 # ===== Definição dos DataFrames individuais =====
 # sa_mht.dat
@@ -87,46 +86,5 @@ desc = df_all.groupby('Algorithm').agg(
     Time_std=('Time', 'std'),
     Success_rate=('Result', lambda x: (x == 'V').mean() * 100)
 )
-
-# Gráfico de barras para Moves_mean
-plt.figure(figsize=(10, 5))
-plt.bar(desc.index, desc['Moves_mean'], yerr=desc['Moves_std'], capsize=5, color='steelblue')
-plt.ylabel('Movimentos (média ± desvio padrão)')
-plt.title('Média de Movimentos por Algoritmo e Heurística')
-plt.xticks(rotation=45, ha='right')
-plt.tight_layout()
-plt.grid(axis='y', linestyle='--', alpha=0.7)
-plt.show()
-
-
-# Gráfico de barras com médias de tempo e desvio padrão (com BFS)
-plt.figure(figsize=(10, 5))
-plt.bar(desc.index, desc['Time_mean'], yerr=desc['Time_std'], capsize=5, color='darkorange')
-plt.ylabel('Tempo (s) - média ± desvio padrão')
-plt.title('Tempo de Execução por Algoritmo e Heurística (com BFS)')
-plt.xticks(rotation=45, ha='right')
-plt.tight_layout()
-plt.grid(axis='y', linestyle='--', alpha=0.7)
-plt.show()
-
-# Filtrando o DataFrame para remover o BFS
-desc_sem_bfs = desc[desc.index != 'BFS']
-
-# Gráfico de barras com médias de tempo e desvio padrão (sem BFS)
-plt.figure(figsize=(10, 5))
-plt.bar(desc_sem_bfs.index, desc_sem_bfs['Time_mean'], yerr=desc_sem_bfs['Time_std'], capsize=5, color='teal')
-plt.ylabel('Tempo (s) - média ± desvio padrão')
-plt.title('Tempo de Execução por Algoritmo e Heurística (sem BFS)')
-plt.xticks(rotation=45, ha='right')
-plt.tight_layout()
-plt.grid(axis='y', linestyle='--', alpha=0.7)
-plt.show()
-
-# Gráfico de barras para Success_rate
-desc[['Success_rate']].plot(kind='bar', figsize=(10, 6))
-plt.title('Comparação de Taxas de sucesso')
-plt.ylabel('Taxa de Sucesso (%)')
-plt.xlabel('Algoritmo')
-plt.xticks(rotation=45)
-plt.tight_layout()
-plt.show()
+print("=== Estatísticas Descritivas ===")
+print(desc)
