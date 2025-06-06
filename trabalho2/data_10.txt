@@ -1,0 +1,10 @@
+cavalo é mamífero
+cavalo come capim
+cavalo é quadrúpede
+humano faz guerra
+humano é bípede
+humano monta cavalo
+quadrúpede é animal
+bípede é animal
+capim é vegetal
+braquiária é capim 
