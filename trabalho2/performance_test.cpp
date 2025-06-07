@@ -1,10 +1,8 @@
 #include "graph.h"
 #include <chrono>
 #include <random>
-#include <numeric>
 #include <cmath>
 #include <fstream>
-#include <iomanip>
 
 using namespace std::chrono;
 
