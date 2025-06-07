@@ -59,8 +59,6 @@ void runPerformanceTests(graph& G, ofstream& outFile) {
     const int NUM_QUERIES = 1000;
     vector<pair<string, string>> queries = generateRandomQueries(G, NUM_QUERIES);
     
-    outFile << fixed << setprecision(3);  // Reduce precision to 3 decimal places
-    
     TestResult bfs_result = measurePerformance(G, queries, &graph::bfs);
     outFile << "BFS: " << bfs_result.mean << " " << bfs_result.std_dev << endl;
     
